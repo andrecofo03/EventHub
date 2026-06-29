@@ -1,0 +1,30 @@
+{% extends "services/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 900px;">
+    <div class="card shadow border-0 p-4">
+        <h2 class="page-title">Crea Evento</h2>
+        <form method="post" novalidate
+            onsubmit="return confirm('Sei sicuro? Dopo questa azione, in futuro potrai solo modificare la data.');">
+            {% csrf_token %}
+            <div class="row g-4">
+                <div class="col-md-7">
+                    {{ form.title|as_crispy_field }}
+                    {{ form.description|as_crispy_field }}
+                </div>
+                <div class="col-md-5">
+                    {{ form.date|as_crispy_field }}
+                    {{ form.location|as_crispy_field }}
+                    {{ form.max_capacity|as_crispy_field }}
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark px-4 py-2 fw-bold">Crea</button>
+                <a href="{% url 'home' %}" class="btn btn-outline-dark px-4 py-2 ms-2">Annulla</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

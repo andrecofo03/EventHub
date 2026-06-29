@@ -1,0 +1,22 @@
+{% extends "services/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card card-center">
+    <h2 class="text-center mb-4">Crea Account</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-dark">Registrati</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4 pt-3 border-top">
+        <p class="text-muted mb-0">Hai già un account? <a href="{% url 'login' %}"
+                class="text-decoration-none">Accedi</a></p>
+    </div>
+</div>
+{% endblock %}

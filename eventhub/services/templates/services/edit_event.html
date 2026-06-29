@@ -1,0 +1,20 @@
+{% extends "services/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="page-title">Modifica Evento</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="mt-3 text-center">
+                    <button type="submit" class="btn btn-dark">Salva</button>
+                    <a href="{% url 'my_organized_events' %}" class="btn btn-outline-dark ms-2">Annulla</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

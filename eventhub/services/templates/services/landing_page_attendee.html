@@ -1,0 +1,20 @@
+{% extends "services/base.html" %}
+
+{% block content %}
+<div class="card card-center">
+    <h2 class="page-title">Menù principale</h2>
+    <p class="text-center text-muted">Benvenuto, <strong>{{ request.user.username }}</strong></p>
+    <hr>
+    <div class="list-group mt-4 text-center">
+        <a href="{% url 'view_events' %}" class="list-group-item list-group-item-action py-3">
+            <h5> Sfoglia Eventi</h5>
+            <p class="mb-0 text-muted small">Eventi disponibili</p>
+        </a>
+        <a href="{% url 'my_registrations' %}" class="list-group-item list-group-item-action py-3">
+            <h5> Le mie Registrazioni</h5>
+            <p class="mb-0 text-muted small">Gestisci partecipazioni</p>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

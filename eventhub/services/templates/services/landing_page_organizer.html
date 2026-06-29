@@ -1,0 +1,24 @@
+{% extends "services/base.html" %}
+
+{% block content %}
+<div class="card card-center">
+    <h2 class="page-title">Menù Organizzatore</h2>
+    <p class="text-center text-muted">Benvenuto, <strong>{{ request.user.username }}</strong></p>
+    <hr>
+    <div class="list-group mt-4 text-center">
+        <a href="{% url 'create_event' %}" class="list-group-item list-group-item-action py-3">
+            <h5 class="fw-bold"> Crea Nuovo Evento</h5>
+            <p class="mb-0 text-muted small">Pubblica evento</p>
+        </a>
+        <a href="{% url 'my_organized_events' %}" class="list-group-item list-group-item-action py-3">
+            <h5> I miei Eventi</h5>
+            <p class="mb-0 text-muted small">Gestisci i tuoi eventi</p>
+        </a>
+        <a href="{% url 'view_events' %}" class="list-group-item list-group-item-action py-3">
+            <h5> Eventi disponibili</h5>
+            <p class="mb-0 text-muted small">Eventi pubblicati</p>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

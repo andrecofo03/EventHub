@@ -1,0 +1,74 @@
+{% extends "services/base.html" %}
+
+{% block content %}
+<div class="card card-center" style="max-width: 700px;">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+        <h2 class="page-title">{{ event.title }}</h2>
+        <span class="badge bg-secondary p-2">
+            {% if event.max_capacity %}
+            {{ event.registrations.count }} / {{ event.max_capacity }} Partecipanti
+            {% else %}
+            {{ event.registrations.count }} Partecipanti (Illimitati)
+            {% endif %}
+        </span>
+    </div>
+
+    <h6 class="text-muted mb-1">
+        {{ event.date|date:"d/m/Y H:i" }} a: {{ event.location }}
+    </h6>
+    <p class="text-muted small mb-4">
+        <strong>Organizzato da:</strong> {{ event.organizer.username }} ({{ event.organizer.email }})
+    </p>
+
+    <div class="my-4">
+        <h5>Descrizione</h5>
+        <p class="text-secondary fs-5" style="white-space: pre-line;">{{ event.description }}</p>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+        {% if request.GET.src == 'my_registrations' %}
+        <a href="{% url 'my_registrations' %}" class="btn btn-outline-dark">Torna indietro</a>
+        {% else %}
+        <a href="{% url 'view_events' %}" class="btn btn-outline-dark">Torna indietro</a>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+        {% if event.organizer != request.user and request.user.user_type != 'admin' %}
+        {% if not is_registered %}
+        {% if event.max_capacity and event.registrations.count >= event.max_capacity %}
+        <button class="btn btn-secondary" disabled>Posti esauriti</button>
+        {% else %}
+        <form method="post" action="{% url 'register_event' event.id %}" class="m-0">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button type="submit" class="btn btn-dark">Registrati</button>
+        </form>
+        {% endif %}
+        {% endif %}
+        {% elif request.user.user_type == 'admin' %}
+        <div class="d-flex gap-2">
+            <a href="{% url 'event_attendees' event.id %}" class="btn btn-outline-dark">Lista iscritti</a>
+            <form method="post" action="{% url 'delete_event' event.id %}"
+                onsubmit="return confirm('Sei sicuro di voler eliminare questo evento?');" class="m-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">ELIMINA EVENTO</button>
+            </form>
+        </div>
+        {% endif %}
+        {% if request.user.user_type == 'organizer' and event.organizer == request.user %}
+        <div class="d-flex gap-2">
+            <a href="{% url 'edit_event' event.id %}" class="btn btn-dark">Modifica</a>
+            <a href="{% url 'event_attendees' event.id %}" class="btn btn-outline-dark">Lista iscritti</a>
+            <form method="post" action="{% url 'delete_event' event.id %}"
+                onsubmit="return confirm('Sei sicuro di voler eliminare questo evento?');" class="m-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">Elimina</button>
+            </form>
+        </div>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-link">Accedi per partecipare</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
