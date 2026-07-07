@@ -1,6 +1,13 @@
 # EventHub
 
-## Description
+##### Chosen project type: 
+- Full-Stack Web Application
+
+##### Framework used: 
+- Django
+
+
+### Description
 EventHub is an event management platform that allows activity planning, registration management, and coordination of attendee participation. Organizers can plan events, while attendees can view active events and register for them.
 
 ---
@@ -28,6 +35,7 @@ EventHub is an event management platform that allows activity planning, registra
 ## Database Elements
 
 The database included in the project is located in the **`db.sqlite3`** file (in the project root directory) and contains pre-loaded demo data for immediate testing.
+For the online deployment, a remote PostgreSQL database is used, hosted on **Neon** and integrated via serverless database configuration.
 
 | Role | Username | Password |
 | :--- | :--- | :--- |
@@ -35,10 +43,10 @@ The database included in the project is located in the **`db.sqlite3`** file (in
 | **Attendee** | `user_demo` | `user12345` |
 | **Organizer** | `manager_demo` | `manager12345` |
 
-I added also two new users from the deployment:
+I added also two new users from the deployment domain:
 
 | Role | Username | Password | 
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | **Organizer** | `manager_deploy` | `deploy12345` | 
 | **Attendee** | `user_deploy` | `deploy12345` | 
 
@@ -50,19 +58,19 @@ I added also two new users from the deployment:
 * Open the browser
 * Log in with the **Organizer** account:
  
-### 2. Navigate to a Feature
+### 2. Navigate to a feature
 * Once logged in, click on **Create Event** from the options available
 
-### 3. Create and Edit Data
+### 3. Create and edit data
 * **Creation**: Fill in the form with the event details required and click **Create**
 * **Edit**: Access the details page of the newly created event, click on **Edit**, make a change to one of the fields and confirm
 
-### 4. Test Permissions
+### 4. Test permissions
 * Log in as an **Attendee**:
 * **Permission violation test**: Attempt to force navigation by manually entering the event edit URL created earlier in the browser address bar
 * **Expected result**: It will prevent access by displaying an error page, because only the organizer that created the event can edit it
 
-### 5. Verify Results
+### 5. Verify results
 * Return to the main event list
 * Click on **Details** of the event created earlier and click **Register**
 * Verify that the event appears correctly in your personal **Registrations** page and that the event details show the attendee counter updated correctly  
