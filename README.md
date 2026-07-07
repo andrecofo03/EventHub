@@ -35,6 +35,13 @@ The database included in the project is located in the **`db.sqlite3`** file (in
 | **Attendee** | `user_demo` | `user12345` |
 | **Organizer** | `manager_demo` | `manager12345` |
 
+I added also two new users from the deployment:
+
+| Role | Username | Password | 
+| :--- | :--- | :--- | :--- |
+| **Organizer** | `manager_deploy` | `deploy12345` | 
+| **Attendee** | `user_deploy` | `deploy12345` | 
+
 ---
 
 ## Testing scenario
@@ -53,7 +60,7 @@ The database included in the project is located in the **`db.sqlite3`** file (in
 ### 4. Test Permissions
 * Log in as an **Attendee**:
 * **Permission violation test**: Attempt to force navigation by manually entering the event edit URL created earlier in the browser address bar
-* **Expected Result**: The system will prevent access by displaying an error page, confirming that only the organizer who created the event can edit it
+* **Expected result**: It will prevent access by displaying an error page, because only the organizer that created the event can edit it
 
 ### 5. Verify Results
 * Return to the main event list
