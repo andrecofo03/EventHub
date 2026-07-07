@@ -3,3 +3,4 @@ django-environ
 django-crispy-forms
 crispy-bootstrap5
 whitenoise
+psycopg2-binary
