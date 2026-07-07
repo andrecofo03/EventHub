@@ -62,7 +62,7 @@ class EventDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        if user.is_authenticated and user.user_type == 'attendee':
+        if user.is_authenticated and user.user_type in ['attendee', 'organizer']:
             context['is_registered'] = Registration.objects.filter(event=self.object, user=user).exists()
         else:
             context['is_registered'] = False
@@ -71,7 +71,9 @@ class EventDetailView(DetailView):
 class EventRegistrationView(LoginRequiredMixin, AdminOnlyMixin, View):
     def post(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
-        if event.max_capacity is not None and event.registrations.count() >= event.max_capacity:
+        if Registration.objects.filter(event=event, user=request.user).exists():
+            messages.warning(request, "Ti sei già iscritto a questo evento.")
+        elif event.max_capacity is not None and event.registrations.count() >= event.max_capacity:
             messages.error(request, "L'evento ha raggiunto la capacità massima.")
         else:
             Registration.objects.create(event=event, user=request.user)
@@ -81,7 +83,7 @@ class EventRegistrationView(LoginRequiredMixin, AdminOnlyMixin, View):
             return redirect(next_url)
         return redirect('view_events')
 
-class EventUnregistrationView(LoginRequiredMixin, AttendeeRequiredMixin, View):
+class EventUnregistrationView(LoginRequiredMixin, AdminOnlyMixin, View):
     def post(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
         reg = Registration.objects.filter(event=event, user=request.user).first()

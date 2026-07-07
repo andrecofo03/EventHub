@@ -44,6 +44,12 @@
             <button type="submit" class="btn btn-dark">Registrati</button>
         </form>
         {% endif %}
+        {% else %}
+        <form method="post" action="{% url 'unregister_event' event.id %}" class="m-0">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button type="submit" class="btn btn-outline-danger">Disiscriviti</button>
+        </form>
         {% endif %}
         {% elif request.user.user_type == 'admin' %}
         <div class="d-flex gap-2">

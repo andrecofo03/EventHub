@@ -31,5 +31,10 @@ class Registration(models.Model):
     )
     registration_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['event', 'user'], name='unique_event_user_registration')
+        ]
+
     def __str__(self):
         return f"{self.user.username} - {self.event.title}"
