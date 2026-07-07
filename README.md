@@ -63,3 +63,4 @@ The database included in the project is located in the **`db.sqlite3`** file (in
 ---
 
 ## Deployment Link
+https://eventhub-project.vercel.app/
