@@ -47,10 +47,9 @@ class EventListView(LoginRequiredMixin, ListView):
         else:
             qs = qs.order_by('date')
         if self.request.user.is_authenticated:
+            qs = qs.exclude(registrations__user=self.request.user)
             user_type = getattr(self.request.user, 'user_type', None)
-            if user_type == 'attendee':
-                qs = qs.exclude(registrations__user=self.request.user)
-            elif user_type == 'organizer':
+            if user_type == 'organizer':
                 qs = qs.exclude(organizer=self.request.user)
         return qs
 
