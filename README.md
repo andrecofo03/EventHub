@@ -35,7 +35,7 @@ EventHub is an event management platform that allows activity planning, registra
 ## Database Elements
 
 The database included in the project is located in the **`db.sqlite3`** file (in the project root directory) and contains pre-loaded demo data for immediate testing.
-For the online deployment, a remote PostgreSQL database is used, hosted on **Neon** and integrated via serverless database configuration.
+For the online deployment, a remote database is used, hosted on **Neon** and integrated via serverless database configuration.
 
 | Role | Username | Password |
 | :--- | :--- | :--- |
